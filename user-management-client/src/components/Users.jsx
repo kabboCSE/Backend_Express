@@ -38,7 +38,7 @@ const Users = ({ usersPromise }) => {
           <button>Add User</button>
         </form>
       </div>
-      {initialUsers.map((user) => (
+      {users.map((user) => (
         <p key={user.id}>
           {user.name} {user.email}
         </p>
