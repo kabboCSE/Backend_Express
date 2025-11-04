@@ -22,6 +22,5 @@
   "bugs": {
     "url": "https://github.com/kabboCSE/user-management-server/issues"
   },
-  "homepage": "https://github.com/kabboCSE/user-management-server#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/kabboCSE/user-management-server#readme"
 }

@@ -4,11 +4,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
+app.use(express.json());
 app.get("/", (req, res) => {
   res.send("user server is available on updated port");
-}); 
-
-
+});
 
 const user = [
   { id: 1, name: "Haris Rouf", email: "shahriar100@gmail.com" },
@@ -18,6 +17,10 @@ const user = [
 
 app.get("/users", (req, res) => {
   res.send(user);
+});
+
+app.post("/users", (req, res) => {
+  console.log("Post data created", req.body);
 });
 
 app.listen(port, () => {

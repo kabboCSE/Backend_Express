@@ -3,14 +3,35 @@ import React, { use } from "react";
 const Users = ({ usersPromise }) => {
   const users = use(usersPromise);
   console.log(users);
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const newUser = { name, email };
+    console.log(name, email);
+    // send data to the server
+    // {} = request object
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("After post ", data);
+      });
+  };
   return (
     <div>
       <div>
         <h3>Add a user</h3>
-        <form>
-          <input type="text" name="" id="" placeholder="Name" />
+        <form onSubmit={handleAddUser}>
+          <input type="text" name="name" id="" placeholder="Name" />
           <br />
-          <input type="email" name="" id="" placeholder="Email" />
+          <input type="email" name="email" id="" placeholder="Email" />
           <br />
           <button>Add User</button>
         </form>
@@ -25,3 +46,9 @@ const Users = ({ usersPromise }) => {
 };
 
 export default Users;
+
+/* 
+Have to send request object to the server
+1. mention method: post
+2. mention header: about json data in the property of content-type: application/json
+*/
