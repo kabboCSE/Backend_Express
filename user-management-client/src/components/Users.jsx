@@ -1,8 +1,8 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 
 const Users = ({ usersPromise }) => {
-  const users = use(usersPromise);
-  console.log(users);
+  const initialUsers = use(usersPromise);
+  const [users, setUsers] = useState(initialUsers);
 
   const handleAddUser = (e) => {
     e.preventDefault();
@@ -22,6 +22,8 @@ const Users = ({ usersPromise }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log("After post ", data);
+        const newUsers = [...users, data];
+        setUsers(newUsers);
       });
   };
   return (
@@ -36,9 +38,9 @@ const Users = ({ usersPromise }) => {
           <button>Add User</button>
         </form>
       </div>
-      {users.map((user) => (
+      {initialUsers.map((user) => (
         <p key={user.id}>
-          {user.name} Email : {user.email}
+          {user.name} {user.email}
         </p>
       ))}
     </div>
@@ -51,4 +53,11 @@ export default Users;
 Have to send request object to the server
 1. mention method: post
 2. mention header: about json data in the property of content-type: application/json
+3. body: JSON.stringify(newUser)
+
+*
+*
+*................................
+* on the server side use json as middleware
+* app.use(express.json)
 */

@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); //middleware
 app.get("/", (req, res) => {
   res.send("user server is available on updated port");
 });
@@ -21,6 +21,10 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
   console.log("Post data created", req.body);
+  const newUser = req.body;
+  newUser.id = user.length + 1;
+  user.push(newUser);
+  res.send(newUser);
 });
 
 app.listen(port, () => {
