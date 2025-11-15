@@ -6,12 +6,14 @@ const Users = ({ usersPromise }) => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
+    // 1. Form er data nao
     const name = e.target.name.value;
     const email = e.target.email.value;
     const newUser = { name, email };
     console.log(name, email);
     // send data to the server
     // {} = request object
+    // 2. Server e POST request pathao
     fetch("http://localhost:3000/users", {
       method: "POST",
       headers: {
@@ -19,10 +21,15 @@ const Users = ({ usersPromise }) => {
       },
       body: JSON.stringify(newUser),
     })
+      //Client Receives Response
       .then((res) => res.json())
       .then((data) => {
+        // 3. Server response e new user ID soho ashe
         console.log("After post ", data);
+        // 4. MAGIC EKHANE: Puran users array er sathe notun user add kore new array banao
         const newUsers = [...users, data];
+
+        // 5. State update koro - React automatically re-render korbe
         setUsers(newUsers);
       });
   };
